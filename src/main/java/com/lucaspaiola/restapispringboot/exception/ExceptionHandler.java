@@ -81,4 +81,16 @@ public class ExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(response);
     }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(AlreadyExistsException.class)
+    public ResponseEntity<ValidationErrorResponse> handleAlreadyExists(AlreadyExistsException exception) {
+        ValidationErrorResponse response = new ValidationErrorResponse(
+                exception.getMessage(),
+                List.of()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(response);
+    }
 }
